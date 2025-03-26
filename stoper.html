@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stoper</title>
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            background: #c0c0c0;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .stoper-container {
+            width: 250px;
+            background: #f3f3f3;
+            padding: 10px;
+            border: 2px solid black;
+            box-shadow: 3px 3px 0px #808080;
+            margin: auto;
+        }
+        .czas {
+            font-size: 24px;
+            font-weight: bold;
+            background: #ffffff;
+            border: 1px solid black;
+            padding: 5px;
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 70px;
+            height: 30px;
+            margin: 5px;
+            border: 2px solid black;
+            background: #dcdcdc;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stoper-container">
+        <div class="czas" id="czas">00:00:00</div>
+        <button onclick="start()">Start</button>
+        <button onclick="stop()">Stop</button>
+        <button onclick="reset()">Reset</button>
+    </div>
+
+    <script>
+        let czas = 0, interwal;
+        function formatujCzas(sekundy) {
+            let h = Math.floor(sekundy / 3600);
+            let m = Math.floor((sekundy % 3600) / 60);
+            let s = sekund % 60;
+            return (h < 10 ? "0" : "") + h + ":" + 
+                   (m < 10 ? "0" : "") + m + ":" + 
+                   (s < 10 ? "0" : "") + s;
+        }
+        function start() {
+            if (!interwal) {
+                interwal = setInterval(() => {
+                    czas++;
+                    document.getElementById("czas").innerText = formatujCzas(czas);
+                }, 1000);
+            }
+        }
+        function stop() {
+            clearInterval(interwal);
+            interwal = null;
+        }
+        function reset() {
+            stop();
+            czas = 0;
+            document.getElementById("czas").innerText = "00:00:00";
+        }
+    </script>
+
+</body>
+</html>
